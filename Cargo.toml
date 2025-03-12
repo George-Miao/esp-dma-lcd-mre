@@ -1,0 +1,26 @@
+[package]
+name = "esp-dma-lcd-mre"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+embedded-hal = "1.0.0"
+esp-alloc = "0.6.0"
+esp-backtrace = { version = "0.15.0", features = ["esp32s3", "exception-handler", "panic-handler", "println"] }
+esp-hal = { version = "1.0.0-beta.0", features = ["esp32s3", "log", "unstable"] }
+esp-println = { version = "0.13.0", features = ["esp32s3", "log"] }
+
+log = "0.4.25"
+static_cell = { version = "2.1.0", features = ["nightly"] }
+
+[profile.dev]
+opt-level = "s"
+
+[profile.release]
+codegen-units = 1        # LLVM can perform better optimizations using a single thread
+debug = 2
+debug-assertions = false
+incremental = false
+lto = 'fat'
+opt-level = 's'
+overflow-checks = false
